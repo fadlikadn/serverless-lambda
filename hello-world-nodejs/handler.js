@@ -14,7 +14,10 @@ module.exports.hello = async event => {
   // };
 
   console.log('second update !');
-  return "hello-world";
+  setTimeout(function() {
+    return "hello-world";
+  }, 4000);
+  
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };

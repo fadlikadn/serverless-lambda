@@ -71,10 +71,16 @@
               }
             }
           },
-          "HelloLogGroup": {
+          "HelloDashshortDashtimeoutLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/hello-world-nodejs-dev-hello"
+              "LogGroupName": "/aws/lambda/hello-world-nodejs-dev-hello-short-timeout"
+            }
+          },
+          "HelloDashlongDashtimeoutLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/hello-world-nodejs-dev-hello-long-timeout"
             }
           },
           "IamRoleLambdaExecution": {
@@ -153,18 +159,54 @@
               }
             }
           },
-          "HelloLambdaFunction": {
+          "HelloDashshortDashtimeoutLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/hello-world-nodejs/dev/1575425539664-2019-12-04T02:12:19.664Z/hello-world-nodejs.zip"
+                "S3Key": "serverless/hello-world-nodejs/dev/1575430960607-2019-12-04T03:42:40.607Z/hello-world-nodejs.zip"
               },
-              "FunctionName": "hello-world-nodejs-dev-hello",
+              "FunctionName": "hello-world-nodejs-dev-hello-short-timeout",
               "Handler": "handler.hello",
-              "MemorySize": 1024,
+              "MemorySize": 128,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs12.x",
+              "Timeout": 3
+            },
+            "DependsOn": [
+              "HelloDashshortDashtimeoutLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "HelloDashshortDashtimeoutLambdaVersion8b5BoNinmThCCUMCPJeUeELnwpQPql87RuT2Oe4sY": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "HelloDashshortDashtimeoutLambdaFunction"
+              },
+              "CodeSha256": "qBYgVdEzSivQZtBbRAAHOFm4efA1pta7OzmmYswxzdo="
+            }
+          },
+          "HelloDashlongDashtimeoutLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/hello-world-nodejs/dev/1575430960607-2019-12-04T03:42:40.607Z/hello-world-nodejs.zip"
+              },
+              "FunctionName": "hello-world-nodejs-dev-hello-long-timeout",
+              "Handler": "handler.hello",
+              "MemorySize": 256,
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -175,18 +217,18 @@
               "Timeout": 6
             },
             "DependsOn": [
-              "HelloLogGroup",
+              "HelloDashlongDashtimeoutLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "HelloLambdaVersion8M31o0s9tEJw87wTXhLIG7v8NYOuBW9gRrRWaWh7E": {
+          "HelloDashlongDashtimeoutLambdaVersionv7UUaBurKgDmQ6Uqg1HcmJ1zRQ8v8o2qrVbmgm9ZtE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "HelloLambdaFunction"
+                "Ref": "HelloDashlongDashtimeoutLambdaFunction"
               },
-              "CodeSha256": "Dl3ucRcRubaLliqiOLU1Ke9Hn/5ExpOKIBq2+IG1NqA="
+              "CodeSha256": "qBYgVdEzSivQZtBbRAAHOFm4efA1pta7OzmmYswxzdo="
             }
           }
         },
@@ -196,10 +238,16 @@
               "Ref": "ServerlessDeploymentBucket"
             }
           },
-          "HelloLambdaFunctionQualifiedArn": {
+          "HelloDashshortDashtimeoutLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersion8M31o0s9tEJw87wTXhLIG7v8NYOuBW9gRrRWaWh7E"
+              "Ref": "HelloDashshortDashtimeoutLambdaVersion8b5BoNinmThCCUMCPJeUeELnwpQPql87RuT2Oe4sY"
+            }
+          },
+          "HelloDashlongDashtimeoutLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "HelloDashlongDashtimeoutLambdaVersionv7UUaBurKgDmQ6Uqg1HcmJ1zRQ8v8o2qrVbmgm9ZtE"
             }
           }
         }
@@ -275,13 +323,25 @@
     },
     "pluginsData": {},
     "functions": {
-      "hello": {
+      "hello-short-timeout": {
         "handler": "handler.hello",
+        "memorySize": 128,
+        "timeout": 3,
         "events": [],
-        "name": "hello-world-nodejs-dev-hello",
+        "name": "hello-world-nodejs-dev-hello-short-timeout",
         "package": {},
-        "memory": 1024,
+        "memory": 128,
+        "runtime": "nodejs12.x",
+        "vpc": {}
+      },
+      "hello-long-timeout": {
+        "handler": "handler.hello",
+        "memorySize": 256,
         "timeout": 6,
+        "events": [],
+        "name": "hello-world-nodejs-dev-hello-long-timeout",
+        "package": {},
+        "memory": 256,
         "runtime": "nodejs12.x",
         "vpc": {}
       }
@@ -291,7 +351,7 @@
     "artifact": "D:\\sourcecode\\Mitrais\\CDC\\Serverless\\aws-lambda\\hello-world-nodejs\\.serverless\\hello-world-nodejs.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/hello-world-nodejs/dev/1575425539664-2019-12-04T02:12:19.664Z",
+    "artifactDirectoryName": "serverless/hello-world-nodejs/dev/1575430960607-2019-12-04T03:42:40.607Z",
     "artifact": "hello-world-nodejs.zip"
   }
 }
