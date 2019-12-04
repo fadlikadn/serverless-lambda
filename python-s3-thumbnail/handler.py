@@ -1,5 +1,5 @@
 import boto3
-import cStringIO
+import io
 from PIL import Image, ImageOps
 import os
 
@@ -27,7 +27,8 @@ def get_s3_image(bucket, key):
     response = s3.get_object(Bucket=bucket, Key=key)
     imagecontent = response['Body'].read()
 
-    file = cStringIO.StringIO(imagecontent)
+    # file = cStringIO.StringIO(imagecontent)
+    file = io.StringIO(imagecontent)
     img = Image.open(file)
     return img
 
@@ -40,13 +41,14 @@ def new_filename(key):
 
 def upload_to_s3(bucket, key, image):
     # We're saving the image into a cStringIO object to avoid writing to disk
-    out_thumbnail = cStringIO.StringIO()
+    # out_thumbnail = cStringIO.StringIO()
+    out_thumbnail = io.StringIO()
     # You MUST specify the file type because there is no file name to discernit from
     image.save(out_thumbnail, 'PNG')
     out_thumbnail.seek(0)
 
     response = s3.put_object(
-        ACL='public-read'.
+        ACL='public-read',
         Body=out_thumbnail,
         Bucket=bucket,
         ContentType='image/png',

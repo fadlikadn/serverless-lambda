@@ -39,6 +39,7 @@ custom:
   bucket: fadlikadn-s3-thumbnail-generator
   pythonRequirements:
     dockerizePip: true
+    # dockerizePip: non-linux
 
 functions:
   s3-thumbnail-generator:

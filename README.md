@@ -21,3 +21,6 @@
 - Plugins to deploy Python Dependencies (need to have docker installed)
 - Custom Variables
 - Environment Variables
+
+## Invoke service from CLI
+Run `serverless invoke -f s3-thumbnail-generator --log`
