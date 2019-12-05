@@ -24,3 +24,13 @@
 
 ## Invoke service from CLI
 Run `serverless invoke -f s3-thumbnail-generator --log`
+
+## Learn AWS Stack to build true serverless applications
+- AWS API Gateway
+- AWS S3
+- AWS SNS
+- AWS SQS
+- AWS CloudFormation
+- AWS IAM
+- AWS DynamoDB
+- And many more!
